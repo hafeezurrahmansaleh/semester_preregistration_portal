@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load mathfilters %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'icon/favicon.ico' %}" type="image/x-icon">
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css' %}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap DatePicker Css -->
+    <link href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.css' %}" rel="stylesheet" />
+{#     Google Fonts -->#}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="{% static 'plugins/node-waves/waves.css' %}" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="{% static 'plugins/animate-css/animate.css' %}" rel="stylesheet" />
+
+    <!-- Morris Chart Css-->
+    <link href="{% static 'plugins/morrisjs/morris.css' %}" rel="stylesheet" />
+
+    <!-- Dropzone Css -->
+    <link href="{% static 'plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+    <!-- Custom Css -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="{% static 'css/themes/all-themes.css' %}" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar" id="mainnav" style="background-color: #00838f; color: white;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a style="color: white" class="navbar-brand" href="/gototohomepage">SEMESTER PRE-REGISTRATION PORTAL</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Call Search -->
+                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i style="color: white;" class="material-icons">search</i></a></li>
+                    <!-- #END# Call Search -->
+                    <!-- Notifications -->
+                    <li class="dropdown" ">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i style="color: white;" class="material-icons">notifications</i>
+                            <span class="label-count">7</span>
+                        </a>
+                        <ul class="dropdown-menu" >
+                            <li class="header">NOTIFICATIONS</li>
+                            <li class="body">
+                                <ul class="menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">person_add</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>12 new members joined</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 14 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-cyan">
+                                                <i class="material-icons">add_shopping_cart</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>4 sales made</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 22 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-red">
+                                                <i class="material-icons">delete_forever</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy Doe</b> deleted account</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-orange">
+                                                <i class="material-icons">mode_edit</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy</b> changed name</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 2 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-blue-grey">
+                                                <i class="material-icons">comment</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> commented your post</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 4 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">cached</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> updated status</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-purple">
+                                                <i class="material-icons">settings</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>Settings updated</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> Yesterday
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">View All Notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- #END# Notifications -->
+                    <!-- Tasks -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i style="color: white;" class="material-icons">flag</i>
+                            <span class="label-count">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">TASKS</li>
+                            <li class="body">
+                                <ul class="menu tasks">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Footer display issue
+                                                <small>32%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 32%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Make new buttons
+                                                <small>45%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-cyan" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Create new dashboard
+                                                <small>54%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 54%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Solve transition issue
+                                                <small>65%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Answer GitHub questions
+                                                <small>92%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 92%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">View All Tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a style="color: white;" href="{% url 'change_password' %}">Change Password</a>
+                    </li>
+                    <li >
+                        <a style="color: white;" href="{% url 'logout' %}">Log out</a>
+                    </li>
+                    <!-- #END# Tasks -->
+                    <li  class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i style="color: white;" class="material-icons">more_vert</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block body %}
+    {% endblock %}
+    <!-- Jquery Core Js -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/pages/ui/tooltips-popovers.js' %}"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="{% static 'plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="{% static 'plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="{% static 'plugins/node-waves/waves.js' %}"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="{% static 'plugins/jquery-countto/jquery.countTo.js' %}"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="{% static 'plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'plugins/morrisjs/morris.js' %}"></script>
+
+    <!-- ChartJs -->
+    <script src="{% static 'plugins/chartjs/Chart.bundle.js' %}"></script>
+
+    <!-- Flot Charts Plugin Js -->
+{#    <script src="{% static 'plugins/flot-charts/jquery.flot.js' %}"></script>#}
+{#    <script src="{% static 'plugins/flot-charts/jquery.flot.resize.js' %}"></script>#}
+{#    <script src="{% static 'plugins/flot-charts/jquery.flot.pie.js' %}"></script>#}
+{#    <script src="{% static 'plugins/flot-charts/jquery.flot.categories.js' %}"></script>#}
+{#    <script src="{% static 'plugins/flot-charts/jquery.flot.time.js' %}"></script>#}
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="{% static 'plugins/jquery-sparkline/jquery.sparkline.js' %}"></script>
+
+    <!-- Custom Js -->
+    <script src="{% static 'js/admin.js' %}"></script>
+{#    <script src="{% static 'js/pages/index.js' %}"></script>#}
+
+    <!-- Demo Js -->
+    <script src="{% static 'js/demo.js' %}"></script>
+    <script src="{% static 'js/pages/tables/jquery-datatable.js' %}"></script>
+
+    <!-- Dropzone Plugin Js -->
+    <script src="{% static 'plugins/dropzone/dropzone.js' %}"></script>
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="{% static 'plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
+
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+    <script src="{% static 'js/pages/ui/tooltips-popovers.js' %}"></script>
+<footer class="mainfooter" id="mainfooter" style="z-index: 12;position: relative">
+    <div style="background-color: #00838f; height: 100px; justify-content: center;
+  align-items: center; display: flex; ">
+        <div><p>DEVELOPED BY-</p></div><br>
+        <a href="//www.facebook.com/hafeezurrahman.saleh"> <input style="margin-left: 20px" type="image" id="image" alt="Login" data-toggle="tooltip" data-original-title="Hafeezurrahman Saleh" data-placement="top"  href=""
+                                           src="{% static 'images/saleh.JPG' %}" class="btn-circle-lg waves-effect waves-circle waves-float"/></a>
+        <input style="margin-left: 20px" type="image" id="image" alt="Login" data-toggle="tooltip" data-original-title="Subroto Karmokar" data-placement="top" href=""
+       src="{% static 'images/munna.jpg' %}" class="btn-circle-lg waves-effect waves-circle waves-float">
+        <input style="margin-left: 20px" type="image" id="image" alt="Login" data-toggle="tooltip" data-original-title="Mostafa Munna" data-placement="top" href=""
+       src="{% static 'images/subroto.png' %}" class="btn-circle-lg waves-effect waves-circle waves-float">
+        <input style="margin-left: 20px" type="image" id="image" alt="Login" data-toggle="tooltip" data-original-title="Nagma Islam" data-placement="top" href=""
+       src="{% static 'images/nadia.jpg' %}" class="btn-circle-lg waves-effect waves-circle waves-float">
+        <input style="margin-left: 20px" type="image" id="image" alt="Login" data-toggle="tooltip" data-original-title="Washim Akramm" data-placement="top" href=""
+       src="{% static 'images/washim.png' %}" class="btn-circle-lg waves-effect waves-circle waves-float">
+
+
+    </div>
+    <div style="height: 50px; background-color:#006972; color: white; text-align: center ">
+        <br><p >2020©All right reserved by Department of Software Engineering, DIU</p>
+    </div>
+</footer>
+</body>
+</html>

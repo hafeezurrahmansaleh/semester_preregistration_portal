@@ -1,0 +1,1790 @@
+﻿
+{% extends 'base.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Admin Panel</title>
+    
+    <style>
+        .coursetable tbody {
+          display: block;
+          max-height: 450px;
+          overflow-y: scroll;
+        }
+        .coursetable thead,
+        .coursetable tbody tr {
+          display: table;
+          width: 100%;
+          table-layout: fixed;
+        }
+        .scroll tbody {
+          display: block;
+          max-height: 235px;
+          overflow-y: scroll;
+        }
+
+        .scroll thead,
+        .scroll tbody tr {
+          display: table;
+          width: 100%;
+          table-layout: fixed;
+        }
+    </style>
+</head>
+
+<body class="theme-blue">
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar" style="background-color: #00838f">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="index.html">Admin Panel</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Call Search -->
+                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+                    <!-- #END# Call Search -->
+                    <!-- Notifications -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons">notifications</i>
+                            <span class="label-count">7</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">NOTIFICATIONS</li>
+                            <li class="body">
+                                <ul class="menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">person_add</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>12 new members joined</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 14 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-cyan">
+                                                <i class="material-icons">add_shopping_cart</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>4 sales made</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 22 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-red">
+                                                <i class="material-icons">delete_forever</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy Doe</b> deleted account</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-orange">
+                                                <i class="material-icons">mode_edit</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy</b> changed name</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 2 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-blue-grey">
+                                                <i class="material-icons">comment</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> commented your post</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 4 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">cached</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> updated status</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-purple">
+                                                <i class="material-icons">settings</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>Settings updated</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> Yesterday
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">View All Notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- #END# Notifications -->
+                    <!-- Tasks -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons">flag</i>
+                            <span class="label-count">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">TASKS</li>
+                            <li class="body">
+                                <ul class="menu tasks">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Footer display issue
+                                                <small>32%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 32%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Make new buttons
+                                                <small>45%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-cyan" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Create new dashboard
+                                                <small>54%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 54%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Solve transition issue
+                                                <small>65%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Answer GitHub questions
+                                                <small>92%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 92%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">View All Tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="{% url 'logout' %}">Log out</a>
+                    </li>
+                    <!-- #END# Tasks -->
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar" style="z-index: 0;">
+            <!-- User Info -->
+            <div class="user-info" >
+                <div class="image">
+{#                    <img src="{% static 'images/user.png' %}" width="48" height="48" alt="User" />#}
+                </div><br><br>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #002a80">SWE Office</div>
+                    <div class="email" style="color: #002a80">swe.office@gmail.com</div>
+                    <div class="btn-group user-helper-dropdown">
+                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active">
+                        <a href="{% url 'index' %}">
+                            <i class="material-icons">home</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+{#                    <li>#}
+{#                        <a href="pages/typography.html">#}
+{#                            <i class="material-icons">text_fields</i>#}
+{#                            <span>Typography</span>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="pages/helper-classes.html">#}
+{#                            <i class="material-icons">layers</i>#}
+{#                            <span>Helper Classes</span>#}
+{#                        </a>#}
+{#                    </li>#}
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Teachers</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#largeModalTeacher">
+                                    <span>View Teacher List</span>
+                                </a>
+{#                                <ul class="ml-menu">#}
+{#                                    <li>#}
+{#                                        <a href="pages/widgets/cards/basic.html">Basic</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="pages/widgets/cards/colored.html">Colored</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="pages/widgets/cards/no-header.html">No Header</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#fileUploadTeacher">
+                                    <span>Add Teacher</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Students</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle"  data-toggle="modal" data-target="#largeModalStudent">
+                                    <span>View Student List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#fileUploadStudent">
+                                    <span>Add Student</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle" >
+                            <i class="material-icons">widgets</i>
+                            <span>Courses</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#largeModalCourse">
+                                    <span>All Courses</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#fileUploadCourse">
+                                    <span>Add Course List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">text_fields</i>
+                            <span>Semester Info</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#largeModalSemester">
+                                    <span>Semester Info</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#inputModalSemester">
+                                    <span>Update Semester Info</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">text_fields</i>
+                            <span>Waiver Info</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#largeModalWaiver">
+                                    <span>Waiver List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle" data-toggle="modal" data-target="#fileUploadWaiver">
+                                    <span>Update Waiver List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="reportgenerator/" class="menu-toggle">
+                            <i class="material-icons">report</i>
+                            <span>Generate Report</span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a class="menu-toggle" data-toggle="modal" data-target="#smallModal">
+                            <i class="material-icons">report</i>
+                            <span>Final Registration</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+        <!-- Right Sidebar -->
+        <aside id="rightsidebar" class="right-sidebar">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
+                <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
+                    <ul class="demo-choose-skin">
+                        <li data-theme="red" class="active">
+                            <div class="red"></div>
+                            <span>Red</span>
+                        </li>
+                        <li data-theme="pink">
+                            <div class="pink"></div>
+                            <span>Pink</span>
+                        </li>
+                        <li data-theme="purple">
+                            <div class="purple"></div>
+                            <span>Purple</span>
+                        </li>
+                        <li data-theme="deep-purple">
+                            <div class="deep-purple"></div>
+                            <span>Deep Purple</span>
+                        </li>
+                        <li data-theme="indigo">
+                            <div class="indigo"></div>
+                            <span>Indigo</span>
+                        </li>
+                        <li data-theme="blue">
+                            <div class="blue"></div>
+                            <span>Blue</span>
+                        </li>
+                        <li data-theme="light-blue">
+                            <div class="light-blue"></div>
+                            <span>Light Blue</span>
+                        </li>
+                        <li data-theme="cyan">
+                            <div class="cyan"></div>
+                            <span>Cyan</span>
+                        </li>
+                        <li data-theme="teal">
+                            <div class="teal"></div>
+                            <span>Teal</span>
+                        </li>
+                        <li data-theme="green">
+                            <div class="green"></div>
+                            <span>Green</span>
+                        </li>
+                        <li data-theme="light-green">
+                            <div class="light-green"></div>
+                            <span>Light Green</span>
+                        </li>
+                        <li data-theme="lime">
+                            <div class="lime"></div>
+                            <span>Lime</span>
+                        </li>
+                        <li data-theme="yellow">
+                            <div class="yellow"></div>
+                            <span>Yellow</span>
+                        </li>
+                        <li data-theme="amber">
+                            <div class="amber"></div>
+                            <span>Amber</span>
+                        </li>
+                        <li data-theme="orange">
+                            <div class="orange"></div>
+                            <span>Orange</span>
+                        </li>
+                        <li data-theme="deep-orange">
+                            <div class="deep-orange"></div>
+                            <span>Deep Orange</span>
+                        </li>
+                        <li data-theme="brown">
+                            <div class="brown"></div>
+                            <span>Brown</span>
+                        </li>
+                        <li data-theme="grey">
+                            <div class="grey"></div>
+                            <span>Grey</span>
+                        </li>
+                        <li data-theme="blue-grey">
+                            <div class="blue-grey"></div>
+                            <span>Blue Grey</span>
+                        </li>
+                        <li data-theme="black">
+                            <div class="black"></div>
+                            <span>Black</span>
+                        </li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="settings">
+                    <div class="demo-settings">
+                        <p>GENERAL SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Report Panel Usage</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Email Redirect</span>
+                                <div class="switch">
+                                    <label><input type="checkbox"><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                        <p>SYSTEM SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Notifications</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Auto Updates</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                        <p>ACCOUNT SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Offline</span>
+                                <div class="switch">
+                                    <label><input type="checkbox"><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Location Permission</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- #END# Right Sidebar -->
+    </section>
+
+    <section class="content" style="margin-bottom: -100px">
+        <div class="container-fluid">
+     <div>
+         {% if messages %}
+             {% for message in messages %}
+                 {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <strong>Failed!</strong> {{ message }}
+                 {% elif  message.tags == 'success' %}
+                     <div class="alert alert-success" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <strong>Success!</strong> {{ message }}
+                 {% elif  message.tags == 'warning' %}
+                     <div class="alert alert-warning" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <strong>Warning!</strong> {{ message }}
+                 {% endif %}
+
+                 </div>
+             {% endfor %}
+         {% endif %}
+     </div>
+        <script>
+                 window.setTimeout(function() {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                        $(this).remove();
+                    });
+                }, 3000);
+        </script>
+
+{#<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">#}
+
+{#<div class="alert alert-success" id="success-alert">#}
+{#  <button type="button" class="close" data-dismiss="alert">x</button>#}
+{#  <strong>Success! </strong> Product have added to your wishlist.#}
+{#</div>#}
+            <!-- Widgets -->
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">people</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Total Students</div>
+                            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{ students.count }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">help</i>
+                        </div>
+                        <div class="content">
+                            <div class="text"> Registered in Last Semester</div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">playlist_add_check</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Pre-Registered Till Now</div>{% for regStudent in regStudents %}
+                                
+                            {% endfor %}
+                            <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">{{ regStudents.count }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">person_add</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Registration Done</div>
+                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20">{{ finalregcount }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Widgets -->
+        </div>
+
+    </section>
+    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="smallModalLabel" style="text-align: center">Input Teacher Ininitial to Do Registration</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="tinitialforreg" class="form-control input-field" style="width: 70%;  margin: auto">
+            </div>
+            <div class="modal-footer" style="width: 70%; margin: auto">
+                <a type="button"  href="" class="btn btn-block bg-red waves-effect gotoreg" id="gotoreg" data-dismiss="modal">GO</a>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+     $(document).ready(function() {
+         $('.gotoreg').on('click', function (e) {
+             var tinitial = document.getElementById('tinitialforreg').value;
+              req = $.ajax({
+                    url: '/adminpanel/getteacherid/',
+                    type: 'POST',
+                    data: {
+                        tinitial:tinitial
+                    },
+
+                });
+              req.done(function(data) {
+                window.location.replace("/teacher/finalregistration/201/"+data+"");
+              });
+         });
+     });
+    </script>
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Pre-Registered Courses
+                                <select id="selectSemester" class="" required>
+                                    <option name="semister" value="" selected>Select Semester</option>
+                                       {% for sem in semesters %}
+                                           <option name="semister" value="{{ sem.semesterCode }}">{{ sem.semesterTitle }}</option>
+                                       {% endfor %}
+                                   </select>
+                            </h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                            <table id="courseList" class="table table-bordered table-striped table-hover dataTable js-exportable coursetable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">SL</th>
+                                        <th style="width: 18%">Course Code</th>
+                                        <th style="width: 35%">Course Title</th>
+                                        <th style="width: 10%">Credit</th>
+                                        <th style="width: 15%">Total Students</th>
+                                        <th style="width: 10%">Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for course in courses %}
+                                     <tr style="text-align: center">
+                                       <th scope="row" tyle="width: 10%;">{{ forloop.counter }}</th>
+
+                                       <td tyle="width: 18%; text-align: left;">{{ course.courseCode }}</td>
+                                         <td style="text-align: left; width: 35%">{{ course.courseTitle }}</td>
+                                       <td tyle="width: 10%;">{{ course.courseCredit }}</td>
+                                         <td tyle="width: 15%;">{{ course.registered.count }}</td>
+                                       <td tyle="width: 10%;"><a href="/adminpanel/studentlist/{{ course.id }}/201" class="btn btn-success viewsection">View</a></td>
+                                         </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
+        </div>
+    </section>
+    <!-- Modal Dialogs ====================================================================================================================== -->
+    <div id="inputAreaWaiver">
+            <!-- Default Size -->
+        <div class="modal fade" id="fileUploadWaiver" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="defaultModalLabel">Waiver Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- File Upload | Drag & Drop OR With Click & Choose -->
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card">
+                                    <div class="body">
+
+                                            <div class="dz-message">
+                                                <div class="drag-icon-cph">
+                                                    <i class="material-icons">touch_app</i>
+                                                </div>
+                                                <h3>Drop a Waiver information files here or click to upload.</h3>
+                                            </div>
+                                            <div class="fallback">
+                                                <form action="{% url "fileupload" %}" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="fileuploader" value="waiver">
+                                                 <input name="excel_file" type="file" multiple />
+
+                                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Upload"/>
+                                        </form>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+                        <button class="btn btn-secondary btn-lg btn-block" data-dismiss="modal" data-toggle="modal" data-target="#inputModalCourse">Add Manually</button>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" >CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Dialogs ====================================================================================================================== -->
+        <!-- Default Size -->
+        <div class="modal fade" id="inputModalCourse" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="insert">
+                            {% csrf_token %}
+                            <input type="hidden" name="editorTitle" value="course">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="defaultModalLabel" style="text-align: center" >Course Information</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div  id="input">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="ccode" id="ccode"/>
+                                            <label class="form-label">Course Code</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="ctitle" id="ctitle"/>
+                                                <label class="form-label">Course Title</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control"  name="ccredit" id="ccredit"/>
+                                                <label class="form-label">Credit</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="clevel" id="clevel"/>
+                                                <label class="form-label">Level</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="cterm" id="cterm"/>
+                                                <label class="form-label">Term</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="tsection" id="tsection"/>
+                                                <label class="form-label">Total Section</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-link waves-effect" name="saveChanges" id="save" >SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" name="add_manually" id="addManually" >CLOSE</button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="inputAreaTeacher">
+            <!-- Default Size -->
+            <div class="modal fade" id="fileUploadTeacher" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">Teacher Information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- File Upload | Drag & Drop OR With Click & Choose -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                                <div class="dz-message">
+                                                    <div class="drag-icon-cph">
+                                                        <i class="material-icons">touch_app</i>
+                                                    </div>
+                                                    <h3>Drop a Teacher files here or click to upload.</h3>
+                                                </div>
+
+                                                <div class="fallback">
+
+                                                </div>
+                                            <form action="{% url "fileupload" %}" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                                     {% csrf_token %}
+                                                    <input type="hidden" name="fileuploader" value="teacher">
+                                                <input name="excel_file" type="file"  enctype="multipart/form-data" />
+                                            <input type="submit" value="Upload" class="btn btn-primary btn-lg btn-block"/>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+                            <button  data-dismiss="modal" data-toggle="modal" data-target="#inputTeacher" class="btn btn-secondary  btn-lg btn-block cregister">Add Manually </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button value="Upload" type="submit" class="btn btn-link waves-effect"  name="teacher_save" id="teacherSave">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" name="teacher_close" id="teacherClose">CLOSE</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Dialogs ====================================================================================================================== -->
+            <!-- Default Size -->
+            <div class="modal fade" id="inputTeacher" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="insert">
+                            {% csrf_token %}
+                            <input type="hidden" name="editorTitle" value="teacher">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="defaultModalLabel" style="text-align: center">Teacher Information</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div >
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="tid" name="tid" id="tid">
+                                            <label class="form-label">Teacher ID</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="tname" id="tname">
+                                            <label class="form-label">Teacher Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="tinitial" id="tinitial">
+                                            <label class="form-label">Teacher Initial</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6" >
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input  type="text" class="form-control" name="tdesingnation" id="tdesignation" />
+                                                <label class="form-label">Teacher Designation</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="tphone" id="tphone"/>
+                                                <label class="form-label">Teacher Phone Number</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="temail" id="temail">
+                                            <label class="form-label">Teacher Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-link waves-effect"  name="tsave" id="t_save">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal"  name="tclose" id="t_close">CLOSE</button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="inputAreaStudent">
+            <!-- Default Size -->
+            <div class="modal fade" id="fileUploadStudent" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">Student Information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- File Upload | Drag & Drop OR With Click & Choose -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+
+                                                <div class="dz-message">
+                                                    <div class="drag-icon-cph">
+                                                        <i class="material-icons">touch_app</i>
+                                                    </div>
+                                                    <h3>Drop Student files here or click to upload.</h3>
+                                                </div>
+
+                                                <div class="fallback">
+                                                     <form action="{% url "fileupload" %}" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                                 {% csrf_token %}
+                                            <input type="hidden" name="fileuploader" value="student">
+                                                    <input name="excel_file" type="file" multiple />
+
+                                                <input type="submit" value="Upload" class="btn btn-primary btn-lg btn-block"/>
+                                            </form>
+                                                </div>/
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+                            <button class="btn btn-secondary btn-lg btn-block"  data-dismiss="modal" data-toggle="modal" data-target="#inputModalStudent">Add Manually</button>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" >CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Dialogs ====================================================================================================================== -->
+            <!-- Default Size -->
+            <div class="modal fade" id="inputModalStudent" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="insert">
+                            {% csrf_token %}
+                            <input type="hidden" name="editorTitle" value="student">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="defaultModalLabel" style="text-align: center">Student Information</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div id="input">
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="stid" id="stid">
+                                            <label class="form-label">Student ID</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="stname" id="stname">
+                                            <label class="form-label">Student Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="stemail" id="stemail">
+                                            <label class="form-label">Student Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div>
+                                                <select name="stgender" id="stgender">
+                                                          <option value="male">Male</option>
+                                                          <option value="female">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="stphone" id="stphone" />
+                                                <label class="form-label">Student Phone Number</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="stadvisor" id="stadvisor">
+                                            <label class="form-label">Advisor Initial</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+
+    {% for error in form.errors %}
+         <p class="text-danger">{{ error }}</p>
+    {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-link waves-effect" name="stSave" id="st_save">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" name="stClose" id="st_close">CLOSE</button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="inputAreaCourse">
+            <!-- Default Size -->
+        <div class="modal fade" id="fileUploadCourse" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="defaultModalLabel">Course Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- File Upload | Drag & Drop OR With Click & Choose -->
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card">
+                                    <div class="body">
+
+                                            <div class="dz-message">
+                                                <div class="drag-icon-cph">
+                                                    <i class="material-icons">touch_app</i>
+                                                </div>
+                                                <h3>Drop a Course information files here or click to upload.</h3>
+                                            </div>
+                                            <div class="fallback">
+                                                <form action="{% url "fileupload" %}" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="fileuploader" value="course">
+                                                 <input name="excel_file" type="file" multiple />
+
+                                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Upload"/>
+                                        </form>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+                        <button class="btn btn-secondary btn-lg btn-block" data-dismiss="modal" data-toggle="modal" data-target="#inputModalCourse">Add Manually</button>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" >CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Dialogs ====================================================================================================================== -->
+        <!-- Default Size -->
+        <div class="modal fade" id="inputModalCourse" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="insert">
+                            {% csrf_token %}
+                            <input type="hidden" name="editorTitle" value="course">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="defaultModalLabel" style="text-align: center" >Course Information</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div  id="input">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="ccode" id="ccode"/>
+                                            <label class="form-label">Course Code</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="ctitle" id="ctitle"/>
+                                                <label class="form-label">Course Title</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control"  name="ccredit" id="ccredit"/>
+                                                <label class="form-label">Credit</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="clevel" id="clevel"/>
+                                                <label class="form-label">Level</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="cterm" id="cterm"/>
+                                                <label class="form-label">Term</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="tsection" id="tsection"/>
+                                                <label class="form-label">Number of Section</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-link waves-effect" name="saveChanges" id="save" >SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" name="add_manually" id="addManually" >CLOSE</button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!--input area for semester-->
+        <!-- Modal Dialogs ====================================================================================================================== -->
+        <!-- Default Size -->
+        <div class="modal fade" id="inputModalSemester" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="post" action="insert">
+                            {% csrf_token %}
+                            <input type="hidden" name="editorTitle" value="semester">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="defaultModalLabel" style="text-align: center" >Semester Information</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div  id="input">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <label >Semester Code</label>
+                                            <input type="text" class="form-control" name="scode" id="scode"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label >Semester Title</label>
+                                                <input type="text" class="form-control" name="stitle" id="stitle"/>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Registration Open Date</label>
+                                                <input type="date"  class="form-control"  name="regOpenDate" id="regOpenDate"/>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label >Registration Closed Date</label>
+                                                <input type="date" class="form-control" name="regClosedDate" id="regClosedDate"/>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# File Upload | Drag & Drop OR With Click & Choose -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-link waves-effect" name="saveChanges" id="save" >SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" name="add_manually" id="addManually" >CLOSE</button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+            <!-- Large Size -->
+            <div class="modal fade" id="largeModalTeacher" tabindex="-1" role="dialog" >
+                <div class="modal-dialog modal-lg" role="document" style="width: 85%" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="largeModalLabel" style="text-align:center">Teacher Information</h3>
+                        </div>
+                        <div class="modal-body">
+                                    <!-- Exportable Table -->
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="card">
+                                                <div class="body">
+                                                    <div class="table-responsive">
+                                                       <table class="table table-bordered table-striped table-hover dataTable js-exportable coursetable">
+                                                            <thead>
+                                                                <tr style="text-align: center">
+                                                                    <th style="width: 3%;">SL</th>
+                                                                    <th style="width: 12">Teacher ID</th>
+                                                                    <th style="width: 15%"> Name</th>
+                                                                    <th style="width: 5%"> Initial</th>
+                                                                    <th style="width: 10%"> Designation</th>
+                                                                    <th style="width: 12%"> Phone</th>
+                                                                    <th style="width: 20%"> Email</th>
+                                                                    <th style="width: 5%">Students</th>
+                                                                    <th style="width: 5%">Action</th>
+                                                                    <th style="width: 5%">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            
+                                                            <tbody>
+                                                            {% for teacher in teachers %}
+                                                                 <tr style="text-align: left">
+                                                                   <th scope="row" style="width: 3%;">{{ forloop.counter }}</th>
+                                                                     <td style="width: 12%;">{{ teacher.tID }}</td>
+                                                                     <td style="text-align: left; width: 15%">{{ teacher.tName }}</td>
+                                                                     <td style="width: 5%;">{{ teacher.tInitial }}</td>
+                                                                     <td style="width: 10%;">{{ teacher.tDesignation }}</td>
+                                                                     <td style="width: 12%;">{{ teacher.tPhone }}</td>
+                                                                     <td style="width: 20%;">{{ teacher.tEmail }}</td>
+                                                                     <td style="width: 5%;">{{ teacher.numofstudent }}</td>
+                                                                   <td style="width: 5%;"><a  class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#inputTeacher" onclick="teacherEditor('{{ teacher.tID }}','{{ teacher.tName }}','{{ teacher.tInitial }}','{{ teacher.tDesignation }}','{{ teacher.tPhone }}','{{ teacher.tEmail }}' );">Edit</a></td>
+                                                                     <td style="width: 5%;"><a class="btn btn-danger" href="/adminpanel/teacherDelete/{{ teacher.id }}">Delete</a></td>
+                                                                 <script type="text/javascript">
+                                                                     function teacherEditor(tID,tName,tInitial,tDesignation,tPhone,tEmail){
+                                                                         document.getElementById('tid').value=tID;
+                                                                         document.getElementById('tid').readOnly = true;
+                                                                         document.getElementById('tname').value=tName;
+                                                                         document.getElementById('tinitial').value=tInitial;
+                                                                         document.getElementById('tdesignation').value=tDesignation;
+                                                                         document.getElementById('tphone').value=tPhone;
+                                                                         document.getElementById('temail').value=tEmail;
+
+                                                                     }
+                                                                 </script>
+                                                                 </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- #END# Exportable Table -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" >SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!--Modal For Student-->
+            <div class="modal fade" id="largeModalStudent" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document"  style="width: 85%" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">Student Information</h4>
+                        </div>
+                        <div class="modal-body">
+                                    <!-- Exportable Table -->
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="card">
+                                                <div class="header">
+                                                    <span>
+                                                    <h2>
+                                                        Pre-Registered Courses
+                                                        <select >
+                                                      <option>Spring 2020</option>
+                                                      <option>Fall 2019</option>
+                                                      <option>Summer 2019</option>
+                                                      <option>Spring 2019</option>
+                                                    </select></span>
+                                                    </h2>
+
+                                                    <ul class="header-dropdown m-r--5">
+                                                        <li class="dropdown">
+                                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="material-icons">more_vert</i>
+                                                            </a>
+                                                            <ul class="dropdown-menu pull-right">
+                                                                <li><a href="javascript:void(0);">Action</a></li>
+                                                                <li><a href="javascript:void(0);">Another action</a></li>
+                                                                <li><a href="javascript:void(0);">Something else here</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="body">
+                                                    <div class="table-responsive">
+                                                       <table class="table table-bordered table-striped table-hover dataTable js-exportable coursetable">
+                                                            <thead> 
+                                                                <tr style="text-align: center">
+                                                                    <th style="width: 5%;">SL</th>
+                                                                    <th style="width: 15%">Student ID</th>
+                                                                    <th style="width: 20%"> Name</th>
+                                                                    <th style="width: 20%"> Email</th>
+                                                                    <th style="width: 7%">Gender</th>
+                                                                    <th style="width: 15%"> Phone</th>
+                                                                    <th style="width: 7%"> Advisor</th>
+                                                                    <th style="width: 5%">Action</th>
+                                                                    <th style="width: 5%">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            
+                                                            <tbody>
+                                                            {% for student in students %}
+                                                                 <tr style="text-align: left">
+                                                                   <th style="width: 5%" scope="row">{{ forloop.counter }}</th>
+                                                                     <td style="width: 18%">{{ student.stID }}</td>
+                                                                     <td style=" width: 20%">{{ student.stName }}</td>
+                                                                     <td style="width: 20%">{{ student.stEmail }}</td>
+                                                                     <td style="width: 7%">{{ student.stGender }}</td>
+                                                                     <td style="width: 15%">{{ student.stPhone }}</td>
+                                                                     <td style="width: 8%; text-align: center;">{{ student.stAdvisor.tInitial }}</td>
+                                                                 <td style="width: 5%"><a  class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#inputModalStudent" onclick="studentEditor('{{ student.stID }}','{{ student.stName }}','{{ student.stEmail }}','{{ student.stGender }}','{{ student.stPhone }}','{{ student.stAdvisor.tInitial }}' );">Edit</a></td>
+                                                                   <td style="width: 5%"><a class="btn btn-danger" href="/adminpanel/studentDelete/{{ student.id }}">Delete</a></td>
+                                                                 <script type="text/javascript">
+                                                                     function studentEditor(stID,stName,stEmail,stGender,stPhone,stAdvisor){
+                                                                         document.getElementById('stid').value=stID;
+                                                                         document.getElementById('stid').readOnly = true;
+                                                                         document.getElementById('stname').value=stName;
+                                                                         document.getElementById('stemail').value=stEmail;
+                                                                         document.getElementById('stgender').value=stGender;
+                                                                         document.getElementById('stphone').value=stPhone;
+                                                                         document.getElementById('stadvisor').value=stAdvisor;
+                                                                     }
+                                                                 </script>
+                                                                 </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- #END# Exportable Table -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!--Model Course-->
+            <div class="modal fade" id="largeModalCourse" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document"  style="width: 85%" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">All Courses</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Exportable Table -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <span>
+                                            <h2>
+                                                Pre-Registered Courses
+                                                <select >
+                                              <option>Spring 2020</option>
+                                              <option>Fall 2019</option>
+                                              <option>Summer 2019</option>
+                                              <option>Spring 2019</option>
+                                            </select>
+                                            </span>
+                                            </h2>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);">Action</a></li>
+                                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="body">
+                                            <div class="table-responsive">
+                                               <table class="table table-bordered table-striped table-hover dataTable js-exportable coursetable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 10%;">CL</th>
+                                                            <th style="width: 18%">Course Code</th>
+                                                            <th style="width: 40%">Course Title</th>
+                                                            <th style="width: 10%">Credit</th>
+                                                            <th style="width: 6%">Level</th>
+                                                            <th style="width: 6%">Term</th>
+                                                            <th style="width: 5%">Action</th>
+                                                            <th style="width: 5%">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    
+                                                    <tbody>
+                                                    {% for course in courses %}
+                                                         <tr style="text-align: center">
+                                                           <th scope="row">{{ forloop.counter }}</th>
+                                                             <td>{{ course.courseCode }}</td>
+                                                             <td style="text-align: left">{{ course.courseTitle }}</td>
+                                                             <td>{{ course.courseCredit }}</td>
+                                                             <td>{{ course.level }}</td>
+                                                             <td>{{ course.term }}</td>
+                                                             <td>{{ course.totalSection }}</td>
+                                                           <td><a  class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#inputModalCourse" onclick="courseEditor('{{ course.courseCode }}','{{ course.courseTitle }}','{{ course.courseCredit }}','{{ course.level }}','{{ course.term }}' ,'{{ course.totalSection }}');">Edit</a></td>
+                                                           <td><a class="btn btn-danger" href="/adminpanel/courseDelete/{{ course.id }}">Delete</a></td>
+                                                             <script type="text/javascript">
+                                                             function courseEditor(courseCode,courseTitle,courseCredit,level,term, tsection){
+                                                                 document.getElementById('ccode').value=courseCode;
+                                                                 document.getElementById('ccode').readOnly = false;
+                                                                 document.getElementById('ctitle').value=courseTitle;
+                                                                 document.getElementById('ccredit').value=courseCredit;
+                                                                 document.getElementById('clevel').value=level;
+                                                                 document.getElementById('cterm').value=term;
+                                                                 document.getElementById('tsection').value=tsection;
+                                                             }
+                                                            </script>
+                                                         </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# Exportable Table -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="modal fade" id="largeModalWaiver" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">Semester</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Exportable Table -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <span>
+                                            <h2>
+                                                Waiver Information
+                                            </span>
+                                            </h2>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);">Action</a></li>
+                                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="body">
+                                            <div class="table-responsive">
+                                               <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 10%;">SL</th>
+                                                            <th style="width: 18%">Student Id</th>
+                                                            <th style="width: 35%">Name</th>
+                                                            <th style="width: 10%">Advisor</th>
+                                                            <th style="width: 15%">Existing Waiver</th>
+                                                            <th style="width: 15%">COVID-19 Waiver</th>
+                                                            <th style="width: 15%">Amount of Waiver</th>
+                                                            <th style="width: 15%">Percentage of Waiver</th>
+{#                                                            <th ></th>#}
+{#                                                            <th ></th>#}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for waiver in waivers %}
+                                                         <tr style="text-align: center">
+                                                             <th scope="row">{{ forloop.counter }}</th>
+                                                             <td>{{ waiver.studentID }}</td>
+                                                             <td >{{ waiver.semester.semesterTitle }}</td>
+                                                             <td>{{ waiver.existingWaiver }}</td>
+                                                             <td>{{ waiver.specialWaiver }}</td>
+                                                             <td>{{ waiver.totalWaiver }}</td>
+                                                             <td>{{ waiver.amountofWaiver }}</td>
+                                                             <td>{{ waiver.percentofWaiver }}</td>
+{#                                                           <td><a  class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#inputModalSemester" onclick="semesterEditor('{{ semester.semesterCode }}','{{ semester.semesterTitle }}','{{ semester.regOpenDate }}','{{ semester.regClosedDate }}');">Edit</a></td>#}
+{#                                                           <td><a class="btn btn-danger" href="/adminpanel/semesterDelete/{{ semester.id }}">Delete</a></td>#}
+{#                                                             <script type="text/javascript">#}
+{#                                                             function semesterEditor(semesterCode,semesterTitle,regOpenDate,regClosedDate){#}
+{#                                                                 document.getElementById('scode').value=semesterCode;#}
+{#                                                                 document.getElementById('scode').readOnly = true;#}
+{#                                                                 document.getElementById('stitle').value=semesterTitle;#}
+{#                                                                 document.getElementById('regOpenDate').value=regOpenDate;#}
+{#                                                                 document.getElementById('regClosedDate').value=regClosedDate;#}
+{#                                                             }#}
+{#                                                            </script>#}
+                                                         </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# Exportable Table -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  <!--Model Semester-->
+  <div class="modal fade" id="largeModalSemester" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document"  style="width: 85%" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">Semester</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Exportable Table -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <span>
+                                            <h2>
+                                                Pre-Registered Courses
+                                            </span>
+                                            </h2>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);">Action</a></li>
+                                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="body">
+                                            <div class="table-responsive">
+                                               <table class="table table-bordered table-striped table-hover dataTable js-exportable coursetable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 10%;">SL</th>
+                                                            <th style="width: 18%">Semester Code</th>
+                                                            <th style="width: 35%">Semseter Title</th>
+                                                            <th style="width: 10%">Registration Open Date</th>
+                                                            <th style="width: 15%">Registration Closed Date</th>
+                                                            <th ></th>
+                                                            <th ></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for semester in semesters %}
+                                                         <tr style="text-align: center">
+                                                             <th scope="row">{{ forloop.counter }}</th>
+                                                             <td>{{ semester.semesterCode }}</td>
+                                                             <td >{{ semester.semesterTitle }}</td>
+                                                             <td>{{ semester.regOpenDate }}</td>
+                                                             <td>{{ semester.regCloseDate }}</td>
+                                                           <td><a  class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#inputModalSemester" onclick="semesterEditor('{{ semester.semesterCode }}','{{ semester.semesterTitle }}','{{ semester.regOpenDate }}','{{ semester.regClosedDate }}');">Edit</a></td>
+                                                           <td><a class="btn btn-danger" href="/adminpanel/semesterDelete/{{ semester.id }}">Delete</a></td>
+                                                             <script type="text/javascript">
+                                                             function semesterEditor(semesterCode,semesterTitle,regOpenDate,regClosedDate){
+                                                                 document.getElementById('scode').value=semesterCode;
+                                                                 document.getElementById('scode').readOnly = true;
+                                                                 document.getElementById('stitle').value=semesterTitle;
+                                                                 document.getElementById('regOpenDate').value=regOpenDate;
+                                                                 document.getElementById('regClosedDate').value=regClosedDate;
+                                                             }
+                                                            </script>
+                                                         </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #END# Exportable Table -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+{#        <script >#}
+{#            $(document).ready(function() {#}
+{#                $("#courseList").on('click', '.viewsection', function () {#}
+{#                    var semester = document.getElementById('selectSemester').value;#}
+{#                    var row = $(this).closest('tr').children()[1];    // Find the row#}
+{#                    var te = $(row).html();#}
+{#                    console.log(te);#}
+                    {#try {#}
+{#                        req = $.ajax({#}
+{#                            url: '/adminpanel/studentlist',#}
+{#                            type: 'POST',#}
+{#                            data: {#}
+{#                                ccode: te,#}
+{#                                semester: semester#}
+{#                            }#}
+{#                        });#}
+{#                        alert('success');#}
+                    {#catch (e) {#}
+{#                        alert(e);#}
+{##}
+{##}
+{#                });#}
+{#            });#}
+{#            </script>#}
+
+
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,518 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .coursetable tbody {
+          display: block;
+          max-height: 320px;
+          overflow-y: scroll;
+        }
+        .coursetable thead,
+        .coursetable tbody tr {
+          display: table;
+          width: 100%;
+          table-layout: fixed;
+        }
+        .scroll tbody {
+          display: block;
+          max-height: 235px;
+          overflow-y: scroll;
+        }
+
+        .scroll thead,
+        .scroll tbody tr {
+          display: table;
+          width: 100%;
+          table-layout: fixed;
+        }
+    </style>
+</head>
+<body style="margin-top: 90px;">
+
+
+<script type="text/javascript">
+    //add this js script into the web page,
+//you want reload once after first load
+window.onload = function() {
+    //considering there aren't any hashes in the urls already
+    if(!window.location.hash) {
+        //setting window location
+        window.location = window.location + '#loaded';
+        //using reload() method to reload web page
+        window.location.reload();
+    }
+}
+function nextChar(c) {
+        return String.fromCharCode(c.charCodeAt(0) + 1);
+    }
+    function disablesection(ccode, totalsec, ctitle) {
+        var section = 'A', cval;
+        var id = 'section_' + ccode.replace(/[^a-z0-9,.]/gi, '') + '';
+        for (l = 0; l < totalsec; l++) {
+            req = $.ajax({
+                url: '/student/getstudentpersection',
+                type: 'POST',
+                data: {
+                    ccode: ccode,
+                    semester: '201',
+                    section: section
+                }
+            });
+            req.done(function (data) {
+                console.log(data.sec + data.countvalue);
+                if (ctitle.includes('Project') && data.countvalue > 24) {
+                    $("#" + id).find('option[value=' + data.sec + ']').prop('disabled', true);
+
+                }
+                else if (data.countvalue > 35) {
+                    console.log("Hello" + data.sec);
+                    $("#" + id).find('option[value=' + data.sec + ']').prop('disabled', true);
+                }
+            });
+            cval = nextChar(section);
+            section = cval;
+        }
+    }
+</script>
+<div class="modal fade" id="addcoursemodal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog modal-lg" role="document"  >
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card">
+                    <div class="header bg-green">
+                            <h2>
+                                Course List <small><span class=". . . . ."></span></small>
+                            </h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    <div class="body" >
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-responsive coursetable" style="overflow-x: inherit;" >
+
+                                    <table id="example" class="table table-bordered table-striped table-hover  dataTable" >
+
+                                            <thead >
+                                               <tr >
+                                                 <th scope="col" style="width: 5%">SL</th>
+                                                 <th scope="col" style="width: 30%">Course title</th>
+                                                 <th scope="col" style="width: 15%">Course code</th>
+                                                 <th scope="col" style="width: 10%">Credit</th>
+                                                 <th scope="col" style="width: 10%">Level</th>
+                                                 <th scope="col" style="width: 10%">Term</th>
+                                                 <th scope="col" style="width: 10%">Enroll </th>
+                                               </tr>
+                                             </thead >
+                                               <tbody class="t_sortable" >
+                                               {% for course in courses %}
+                                                 <tr>
+                                                   <th scope="row" style="width: 5%; text-align: center">{{ forloop.counter }}</th>
+                                                   <td style="width: 30%">{{ course.courseTitle }}</td>
+                                                   <td style="width: 15%; text-align: center">{{ course.courseCode }}</td>
+                                                   <td style="width: 10%; text-align: center" >{{ course.courseCredit }} </td>
+                                                   <td style="width: 10%; text-align: center" >{{ course.level }} </td>
+                                                   <td style="width: 10%; text-align: center" >{{ course.term }} </td>
+                                                     <td class="bt" style="width: 10%"><input type="button" name="findCoursebtn" data-dismiss="modal" class="btn btn-success findCourse" id="__{{ course.id }}" value="ADD"/></td>
+                                                 </tr>
+                                                {% endfor %}
+                                               </tbody>
+                                        </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float: right"><button  type="button" class="btn btn-link waves-effect" data-dismiss="modal" name="teacher_close" id="teacherClose" >CLOSE</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content"style="margin: 80px 100px 10px 100px;">
+    <div class="container-fluid" >
+    <!-- Basic Examples -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card"   >
+                        <div class="header" style="margin-bottom: -20px">
+                            <div class="card">
+                                <div class="body " style="text-align: center;color: white;  background-color: #024963">
+                                    <h4>{{ student.stName }}</h4>
+                                    <h4 id="stID">{{ student.stID }}</h4>
+                                    <h5>{{ student.stEmail }}</h5>
+                                    <h5>Advisor: {{ student.stAdvisor.tName }}</h5>
+                                    <input type="hidden" id="sid" value="{{ student.id }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body" >
+                        <div class=" table-responsive" style="overflow-x: inherit;">
+                            <form>
+                        <div class="a">
+                            <label style="float: right" id="totalCredit"></label>
+                        </div>
+                            <table  id="selectedcourse" class="table table-bordered table-striped table-hover scroll">
+                                <thead >
+                                    <tr >
+                                     <th scope="col" class="nr" style="width: 14%">Code</th>
+                                     <th scope="col" style="width: 35%; text-align: center"> Title</th>
+                                     <th scope="col" style="width: 8%">Credit</th>
+                                     <th scope="col" style="width: 15%">Section</th>
+                                     <th scope="col" style="width: 12%"></th>
+                                     <th scope="col" style="width: 12%"></th>
+                                   </tr>
+                                </thead>
+                                <tfoot>
+                                <td >
+
+                                    <a style="float: left" type="button" id="submitbtn"  class="btn bg-red waves-effect btn-lg  cregister" href="/teacher/"><< Back to Home</a>
+                                    <button style="float: right;width: 26%" type="button" id="submitbtn"  class="btn bg-blue waves-effect btn-lg  cregister" href="javascript:void(0);"  data-toggle="modal" data-target="#addcoursemodal">Add New Course</button></td>
+                                </tfoot>
+                                <tbody id="courses" style="font-size: 15px; min-height: 300px; max-height:350px ">
+                                    {% for course in regcourses %}
+                                        <tr >
+                                         <td  style="width: 15%">{{ course.course__courseCode }}</td>
+                                         <td  style="width: 35%"> {{ course.course__courseTitle }}</td>
+                                         <td  style="width: 8%">
+                                             {{ course.course__courseCredit }}
+                                             <input type="hidden" id="rid{{ course.course_id }}" name="khala" value="{{ course.id }}">
+                                             <input type="hidden" id="selectid{{ course.course_id }}" name="khala" value="{{ course.course__courseCode }}">
+                                         </td>
+                                            <td id="{{ course.course_id }}txtt" style="width: 15%">
+                                                    <script type="text/javascript">
+                                                        $(document).ready(function() {
+                                                            var i, txtt = '';
+                                                            var cval = 'A', nval;
+                                                            var selectid = "section_"+"{{ course.course__courseCode }}".replace(/[^a-z0-9,.]/gi, '');
+                                                            txtt = "<select disabled class='form-control show-tick' required id = '"+selectid+"'>\n" +
+                                                                "                                                    <option value=\"\" selected disabled>Select Section</option>\n" +
+                                                                "                                                    <option value=\"A\">A</option>";
+                                                            for (i = 1; i < "{{ course.course__totalSection }}"; i++) {
+                                                                nval = nextChar(cval);
+                                                                txtt += '<option value="' + nval + '">' + nval + '</option>'
+                                                                cval = nval;
+                                                            }
+                                                            var id = "{{ course.course_id }}txtt";
+                                                            $("#" + id).append(txtt);
+                                                            $("#"+selectid).val("{{ course.section}}").change();
+                                                            disablesection("{{ course.course__courseCode }}", "{{ course.course__totalSection }}", "{{ course.course__courseTitle }}");
+                                                        });
+                                                    </script>
+                                                </select>
+                                            </td>
+                                            <td style="width: 12%">
+                                                <input class="btn bg-blue waves-effect changesection" style="width: 100%" id="{{ course.course_id }}" data-html="true" type="button" value="Change Section" />
+
+                                            </td>
+                                            <td style="width: 12%">
+                                                <button class="btn bg-red waves-effect removeRow"  style="width: 100%" name="{{ course.course_id }}" data-html="true" type="button"  >Drop
+                                                </button>
+                                         </td>
+                                       </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Basic Examples -->
+    </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.findCourse').on('click', function () {
+            var semester = $('#semester').val();
+            var level = $('#level').val();
+            var term = $('#term').val();
+            var getid = this.id;
+            var cid = getid.replace(/[^a-z0-9,.]/gi, '') + '';
+            req = $.ajax({
+                url: '/teacher/findcourse/',
+                type: 'POST',
+                data: {cid: cid, level: level, term: term}
+            });
+            req.done(function (data) {
+                var credit = 0, counter=0;
+                var courses =JSON.parse(data);
+                console.log(courses);
+                var txt = '';
+                var x, i,course;
+                for (x in courses) {
+                    course = courses[x];
+                    txt += "<tr >";
+                    txt += "<td style=\"width:15%; font-weight:bold\">" + course.courseCode + "</td>";
+                    txt += "<td style=\"width:35%\">" + course.courseTitle + "</td>";
+                    txt += "<td style=\"width:8%\">" + course.courseCredit
+                    txt += "<input type=\"hidden\" id='rid"+course.id+"' value=\"\"> ";
+                    txt += "<input type=\"hidden\" id=\"selectid"+course.id+"\" name=\"khala\" value=\""+course.courseCode+"\">";
+                    txt += "</td>";
+                    txt += "<td style=\"width:15%\"><select required  name=\"section\" class='form-control show-tick' id = 'section_" + course.courseCode.replace(/[^a-z0-9,.]/gi, '') + "'>";
+                    txt += "<option selected disabled name=\"section\" value=\"\">Select Section</option>";
+                    txt += "<option name=\"section\" value=\"A\">A</option>";
+                    txt += "</select></td>";
+                    {#txt += "<td style=\"width: 12%\"><button type = \"button\" class=\"changesection btn bg-blue waves-effect\"  style=\"width: 100%\" id='" + course.id + "' >Change Section</button> </td>";#}
+                    txt += "<td style=\"width: 12%\"><input type = \"button\" class=\"btn bg-light-green waves-effect changesection\"  style=\"width: 100%\" id='" + course.id + "' value = \"Save\" /></td>";
+                    txt += "<td style=\"width:12%\"><button type = \"button\"  class=\"removeRow btn bg-red waves-effect btn-block\"  >Drop</button></td>"
+                    txt += "</tr>";
+
+                    ccode = course.courseCode;
+                    ctitle = course.courseTitle;
+                    totalsec = course.totalSection;
+                }
+                var rowCount = document.getElementById('selectedcourse').rows.length;
+                for (i = 0; i < rowCount; i++) {
+                    if (course.courseCode == document.getElementById('selectedcourse').rows[i].cells[0].innerHTML) {
+                        return;
+                    }
+                }
+                {
+                document.getElementById('totalCredit').innerHTML = "Credit Taken: " + credit;
+                $("#courses").append(txt);
+                var id = document.getElementsByName("section")[2].id;
+                console.log(id);
+                {#s = course.section;#}
+                var id = 'section_' + ccode.replace(/[^a-z0-9,.]/gi, '') + '';
+                var l = 0;
+                var cval = 'A', nval;
+                console.log(totalsec);
+                for (l = 1; l < totalsec; l++) {
+                    nval = nextChar(cval);
+                    $("#" + id).append('<option value="' + nval + '">' + nval + '</option>');
+                    cval = nval;
+
+                }
+                cval = 'A';
+                nval = 'A';
+                //Remove option
+                disablesection(ccode, totalsec,ctitle);
+                nval = nextChar(cval);
+                cval = nval;
+            }
+            });
+        });
+    });
+</script>
+//remove row
+<script type="text/javascript">
+     $("#selectedcourse").on('click', '.removeRow', function () {
+         try {
+             var sid = document.getElementById('sid').innerText;
+             var rid = document.getElementById('rid' + this.name).value;
+             var semester = 5;
+             console.log(document.getElementById('rid' + this.name).value);
+             var row = $(this).closest('tr').children()[0];    // Find the row
+             var te = $(row).html();
+             console.log(te);
+             if (rid != '') {
+                 try {
+                     req = $.ajax({
+                         url: '/teacher/dropcourse/',
+                         type: 'POST',
+                         data: {
+                             rid: rid,
+                             semester: semester
+                         }
+                     });
+                     alert('Course deleted!');
+                 }
+                 catch (e) {
+                     alert(e)
+                 }
+
+             }
+         }
+         catch (e) {
+             console.log('new row deleted');
+         }
+         $(this).closest('tr').remove();
+        });
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#selectedcourse").on('click', '.changesection', function () {
+        {#$('.changesection').on('click', function() {#}
+            {#try {#}
+            var id = this.id;
+            var txtid = id+'txt';
+            selectid = "section_"+(document.getElementById('selectid'+id).value).replace(/[^a-z0-9,.]/gi, '');
+            var section = document.getElementById(selectid).value;
+            var stid = document.getElementById('sid').value;
+            var regid = document.getElementById('rid'+id).value;
+            console.log(document.getElementById(id).innerText);
+            var x = document.getElementById(selectid);
+            if (document.getElementById(id).value == "Save") {
+                if (x.value=='') {
+                    alert("Select section first");
+                    return false;
+                }
+                req = $.ajax({
+                    url: '/teacher/savecourse/',
+                    type: 'POST',
+                    data: {
+                        sid:stid,
+                        cid: id,
+                        section:section,
+                        semester: 5,
+                        rid:regid
+                    },
+
+                });
+                req.done(function(data) {
+                    x.contentEditable = "false";
+                    {#button.innerHTML = "Add Note";#}
+                    x.readOnly = true;
+                    x.disabled = true;
+                    document.getElementById(id).value = 'Change Section';
+                    document.getElementById('rid'+id).value=data;
+                    alert('Succefully Updated');
+                });
+                this.value = "Change Section";
+                $(this).removeClass("bg-light-green");
+                $(this).addClass("bg-blue");
+            }
+            else {
+                $(this).removeClass("bg-blue");
+                $(this).addClass("bg-light-green");
+                document.getElementById(id).value='Save';
+                this.value="Save";
+                document.getElementById(id).style.backgroundColor='black';
+                //document.querySelector('').innerText = 'Save';
+                x.contentEditable = "true";
+                x.disabled=false;
+                x.focus();
+                var event ;
+                event = document.createEvent('MouseEvents');
+                {#event.initMouseEvent('mousedown', true, true, window);#}
+                {#x.dispatchEvent(event);#}
+                x.readOnly=false;
+                return;
+            }
+    });
+ });
+</script>
+{#<script type="text/javascript">#}
+{#    {{ for  }}#}
+{#    $(document).ready(function() {#}
+{#        var semester = $('#semester').val();#}
+{#        var level = $('#level').val();#}
+{#        var term = $('#term').val();#}
+{#        var cid = this.id;#}
+{#        req = $.ajax({#}
+{#            url: '/student/findcourse',#}
+{#            type: 'POST',#}
+{#            data: {cid: cid, level: level, term: term}#}
+{#        });#}
+{#        req.done(function (data) {#}
+{#            var credit = 0;#}
+{#            var courses = JSON.parse(data);#}
+{#            var txt = '';#}
+{#            var x, i;#}
+{#            for (x in courses) {#}
+{#                var course = courses[x];#}
+{#                txt += "<tr >";#}
+{#                txt += "<td style=\"width:16%; font-weight:bold\">" + course.fields.courseCode + "</td>";#}
+{#                txt += "<td style=\"width:39%\">" + course.fields.courseTitle + "</td>";#}
+{#                txt += "<td style=\"width:10%\">" + course.fields.courseCredit + "</td>";#}
+{#                txt += "<td style=\"width:18%\"><select required  name=\"section\" class='form-control show-tick' id = 'section_" + course.fields.courseCode.replace(/[^a-z0-9,.]/gi, '') + "'>";#}
+{#                txt += "<option selected disabled name=\"section\" value=\"\">---</option>";#}
+{#                txt += "<option name=\"section\" value=\"A\">A</option>";#}
+{#                txt += "</select></td>";#}
+{#                txt += "<td style=\"width:15%\"><input type = \"button\"  class=\"removeRow btn bg-transparent\" value=\"⛔\" /></td>"#}
+{#                txt += "</tr>";#}
+{#                ccode = course.fields.courseCode;#}
+{#                ctitle = course.fields.courseTitle;#}
+{#            }#}
+{#            var rowCount = document.getElementById('selectedcourse').rows.length;#}
+{#            for (i = 0; i < rowCount; i++) {#}
+{#                if (course.fields.courseCode == document.getElementById('selectedcourse').rows[i].cells[0].innerHTML) {#}
+{#                    return;#}
+{#                }#}
+{#            }#}
+{#            for (i = 0; i < rowCount - 1; i++) {#}
+{#                if (i == 0) {#}
+{#                    credit = 0#}
+{#                }#}
+{#                else {#}
+{#                    credit = credit + parseInt(document.getElementById('selectedcourse').rows[i].cells[2].innerHTML)#}
+{#                }#}
+{#            }#}
+{#            credit = credit + parseInt(course.fields.courseCredit);#}
+{#            if (credit > 16) {#}
+{#                alert("You can take maximum 16 Credits!")#}
+{#            }#}
+{#            else {#}
+{#                document.getElementById('totalCredit').innerHTML = "Credit Taken: " + credit;#}
+{#                $("#courses").append(txt);#}
+{#                var id = document.getElementsByName("section")[2].id;#}
+{#                console.log(id);#}
+{#                s = course.section;#}
+{#                var id = 'section_' + ccode.replace(/[^a-z0-9,.]/gi, '') + '';#}
+{#                var l = 0;#}
+{#                var cval = 'A', nval;#}
+{#                for (l = 1; l < course.fields.totalSection; l++) {#}
+{#                    nval = nextChar(cval);#}
+{#                    $("#" + id).append('<option value="' + nval + '">' + nval + '</option>');#}
+{#                    cval = nval;#}
+{##}
+{#                }#}
+{#                cval = 'A';#}
+{#                nval = 'A';#}
+{#                //Remove option#}
+{#                for (l = 0; l < 3; l++) {#}
+{##}
+{#                    req = $.ajax({#}
+{#                        url: '/student/getstudentpersection',#}
+{#                        type: 'POST',#}
+{#                        data: {#}
+{#                            ccode: ccode,#}
+{#                            semester: '201',#}
+{#                            section: nval#}
+{#                        }#}
+{#                    });#}
+{#                    req.done(function (data) {#}
+{#                        console.log("Hello" + data.sec);#}
+{#                        if (ctitle.includes('Project') && data.countvalue > 24) {#}
+{#                            $("#" + id).find('option[value=' + data.sec + ']').prop('disabled', true);#}
+{##}
+{#                        }#}
+{#                        else if (data.countvalue > 34) {#}
+{#                            console.log("Hello" + data.sec);#}
+{#                            $("#" + id).find('option[value=' + data.sec + ']').prop('disabled', true);#}
+{##}
+{#                        }#}
+{##}
+{#                    });#}
+{#                    nval = nextChar(cval);#}
+{#                    cval = nval;#}
+{##}
+{#                }#}
+{#            }#}
+{#        });#}
+{#    });#}
+{#</script>#}
+</body>
+</html>
+{% endblock %}
